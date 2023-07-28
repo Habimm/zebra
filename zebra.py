@@ -1,7 +1,9 @@
-from info import info
 import os
+import pandas
 
 # https://simewu.com/SAT-solver/
+# MIT NULLEN: http://logicrunch.it.uu.se:4096/~wv/minisat/?ex=simple%2Fanomaly
+# MIT NULLEN: https://msoos.github.io/cryptominisat_web/
 # https://waitbutwhy.com/table/zebra-puzzle
 
 # SOLUTION:
@@ -70,10 +72,7 @@ for house in houses:
       syntactical_constraints.append(has_at_most_one_cigarette)
   syntactical_constraints.append("")
 
-
 syntactical_constraints.append("")
-
-
 
 # Jede Farbe kommt bei genau einem Haus vor.
 for color in colors:
@@ -129,17 +128,17 @@ syntactical_constraints = syntactical_constraints[:-1]
 
 # CONVERT NAMES TO NUMBERS
 
-
 # Milestone 0: Loaded empirical constraints
-with open("empirical_constraints.txt") as cons_file:
+with open("empirical_constraints.satcode") as cons_file:
   simple_sat_language = cons_file.read()
 
 if not os.path.exists("milestones"):
   os.mkdir("milestones")
-with open("milestones/1_loaded.txt", "w") as loaded_file:
+with open("milestones/0_loaded.satcode", "w") as loaded_file:
   loaded_file.write(simple_sat_language)
 
 # Milestone 1: Added in the syntax rules.
+# ==================================================================================================
 syntactical_constraints = "\n".join(syntactical_constraints)
 simple_sat_language = (
   "= 1. There are five houses."
@@ -153,21 +152,22 @@ simple_sat_language = (
   f"{simple_sat_language}"
 )
 
-with open("milestones/2_syntax.txt", "w") as syntax_file:
+with open("milestones/1_syntax.satcode", "w") as syntax_file:
   syntax_file.write(simple_sat_language)
 
 # Milestone 2: Removed the comments and whitespace.
+# ==================================================================================================
 simple_sat_language = simple_sat_language.split("\n")
 cleaned = []
 for line in simple_sat_language:
   if not line or line.startswith("="): continue
-  print(line)
   cleaned.append(line)
 
-with open("milestones/3_cleaned.txt", "w") as cleaned_file:
+with open("milestones/2_cleaned.satcode", "w") as cleaned_file:
   cleaned_file.write("\n".join(cleaned))
 
 # Milestone 3: Transformed operators.
+# ==================================================================================================
 transformed_operators = []
 for line in cleaned:
   transformed_line = line.replace("IF ", "-")
@@ -176,11 +176,11 @@ for line in cleaned:
   transformed_line = transformed_line.replace("NOT ", "-")
   transformed_operators.append(transformed_line)
 
-with open("milestones/4_operators.txt", "w") as operators_file:
+with open("milestones/3_operators.satcode", "w") as operators_file:
   operators_file.write("\n".join(transformed_operators))
 
 # Milestone 4: Enumerated variables.
-
+# ==================================================================================================
 propositions = []
 for color in colors:
   for house in houses:
@@ -204,12 +204,14 @@ for cigarette in cigarettes:
     propositions.append(proposition)
 
 proposition_enumeration = {}
+proposition_enumeration_reverse = {}
 for index, proposition in enumerate(propositions):
   proposition_enumeration[proposition] = index + 1
+  proposition_enumeration_reverse[f"x{index + 1}"] = proposition
 
-with open("milestones/proposition_enumeration.txt", "w") as propositions_file:
+with open("milestones/proposition_enumeration.csv", "w") as propositions_file:
   for proposition, number in proposition_enumeration.items():
-    print(f"{number}: {proposition}", file=propositions_file)
+    print(f"x{number} = {proposition}", file=propositions_file)
 
 def replace_literal(literal):
   if literal.startswith("-"): return f"-{proposition_enumeration[literal[1:]]}"
@@ -221,15 +223,25 @@ for line in transformed_operators:
   proposition_numbers = [replace_literal(literal) for literal in literals]
   enumerated_language.append(" ".join(proposition_numbers))
 
-with open("milestones/5_enumerated.txt", "w") as propositions_file:
+with open("milestones/4_enumerated.satcode", "w") as propositions_file:
   propositions_file.write("\n".join(enumerated_language))
 
-constraints_using_numbers = process_constraints(simple_sat_language)
+# Milestone 5: Show the assignment.
+# ==================================================================================================
+if os.path.exists("milestones/proposition_assignment.csv"):
+  assignment = pandas.read_csv("milestones/proposition_assignment.csv", sep="=", names=['Proposition', 'Assignment'])
+  assignment['Proposition'] = assignment['Proposition'].str.replace(' ', '')
+  assignment['Proposition'] = assignment['Proposition'].map(proposition_enumeration_reverse)
+  assignment = assignment[assignment['Assignment'] == 1]
+  assignment = assignment['Proposition']
 
-with open("mapping.csv", "w") as mapping_file:
-  for index, right in enumerate(propositions):
-   print(f"{index + 1}: {right}", file=mapping_file)
+  spatial_index = ["Color", "Nationality", "Pet", "Drink", "Cigarettes"]
+  spatial_table = pandas.DataFrame(columns=houses, index=spatial_index)
 
-with open("cons.txt", "w") as cons_file:
-  for proposition in constraints_using_numbers:
-    print(proposition, file=cons_file)
+  for spatial_table_row_start_index, spatial_table_row_name in zip(range(0, assignment.shape[0], 5), spatial_index):
+    spatial_table_row = assignment[spatial_table_row_start_index:spatial_table_row_start_index+5]
+    for house_property in spatial_table_row:
+      house_property, spatial_table_column_name = house_property.split("_")
+      spatial_table.loc[spatial_table_row_name][spatial_table_column_name] = house_property
+
+  spatial_table.to_csv("milestones/decoded_proposition_assignment.csv")
