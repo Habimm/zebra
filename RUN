@@ -3,4 +3,5 @@
 true
 
 and conda activate ./.conda_environment
+# and rm -rf milestones/
 and ipython3 zebra.py
