@@ -1,4 +1,4 @@
-= The Englishman lives in the red house.
+= 2. The Englishman lives in the red house.
 =====================================================================================
 IF Englishman_1 THEN Red_1
 IF Red_1 THEN Englishman_1
@@ -16,7 +16,7 @@ IF Englishman_5 THEN Red_5
 IF Red_5 THEN Englishman_5
 =====================================================================================
 
-= The Spaniard owns the dog.
+= 3. The Spaniard owns the dog.
 =====================================================================================
 IF Spaniard_1 THEN Dog_1
 IF Dog_1 THEN Spaniard_1
@@ -34,7 +34,7 @@ IF Spaniard_5 THEN Dog_5
 IF Dog_5 THEN Spaniard_5
 =====================================================================================
 
-= Coffee is drunk in the green house.
+= 4. Coffee is drunk in the green house.
 =====================================================================================
 IF Coffee_1 THEN Green_1
 IF Green_1 THEN Coffee_1
@@ -52,7 +52,7 @@ IF Coffee_5 THEN Green_5
 IF Green_5 THEN Coffee_5
 =====================================================================================
 
-= The Ukrainian drinks tea.
+= 5. The Ukrainian drinks tea.
 =====================================================================================
 IF Ukrainian_1 THEN Tea_1
 IF Tea_1 THEN Ukrainian_1
@@ -70,7 +70,7 @@ IF Ukrainian_5 THEN Tea_5
 IF Tea_5 THEN Ukrainian_5
 =====================================================================================
 
-= The green house is immediately to the right of the ivory house (to your right as you stand facing the row of five houses).
+= 6. The green house is immediately to the right of the ivory house (to your right as you stand facing the row of five houses..
 =====================================================================================
 IF Ivory_1 THEN Green_2
 IF Green_2 THEN Ivory_1
@@ -85,7 +85,7 @@ IF Ivory_4 THEN Green_5
 IF Green_5 THEN Ivory_4
 =====================================================================================
 
-= The Old Gold smoker owns snails.
+= 7. The Old Gold smoker owns snails.
 =====================================================================================
 IF OldGold_1 THEN Snails_1
 IF Snails_1 THEN OldGold_1
@@ -103,7 +103,7 @@ IF OldGold_5 THEN Snails_5
 IF Snails_5 THEN OldGold_5
 =====================================================================================
 
-= Kools are smoked in the yellow house.
+= 8. Kools are smoked in the yellow house.
 =====================================================================================
 IF Kools_1 THEN Yellow_1
 IF Yellow_1 THEN Kools_1
@@ -121,47 +121,47 @@ IF Kools_5 THEN Yellow_5
 IF Yellow_5 THEN Kools_5
 =====================================================================================
 
-= Milk is drunk in the middle house.
+= 9. Milk is drunk in the middle house.
 =====================================================================================
 Milk_3
 =====================================================================================
 
-= The Norwegian lives in the first house.
+= 10. The Norwegian lives in the first house.
 =====================================================================================
 Norwegian_1
 =====================================================================================
 
-= The man who smokes Chesterfields lives in the house next to the man with the fox.
+= 11. The man who smokes Chesterfields lives in the house next to the man with the fox.
 =====================================================================================
 IF Chesterfields_1 THEN Fox_2
-IF Chesterfields_2 THEN [Fox_1 OR Fox_3]
-IF Chesterfields_3 THEN [Fox_2 OR Fox_4]
-IF Chesterfields_4 THEN [Fox_3 OR Fox_5]
+IF Chesterfields_2 THEN Fox_1 OR Fox_3
+IF Chesterfields_3 THEN Fox_2 OR Fox_4
+IF Chesterfields_4 THEN Fox_3 OR Fox_5
 IF Chesterfields_5 THEN Fox_4
 
 IF Fox_1 THEN Chesterfields_2
-IF Fox_2 THEN [Chesterfields_1 OR Chesterfields_3]
-IF Fox_3 THEN [Chesterfields_2 OR Chesterfields_4]
-IF Fox_4 THEN [Chesterfields_3 OR Chesterfields_5]
+IF Fox_2 THEN Chesterfields_1 OR Chesterfields_3
+IF Fox_3 THEN Chesterfields_2 OR Chesterfields_4
+IF Fox_4 THEN Chesterfields_3 OR Chesterfields_5
 IF Fox_5 THEN Chesterfields_4
 =====================================================================================
 
-= Kools are smoked in a house next to the house where the horse is kept.
+= 12. Kools are smoked in a house next to the house where the horse is kept.
 =====================================================================================
 IF Kools_1 THEN Horse_2
-IF Kools_2 THEN [Horse_1 OR Horse_3]
-IF Kools_3 THEN [Horse_2 OR Horse_4]
-IF Kools_4 THEN [Horse_3 OR Horse_5]
+IF Kools_2 THEN Horse_1 OR Horse_3
+IF Kools_3 THEN Horse_2 OR Horse_4
+IF Kools_4 THEN Horse_3 OR Horse_5
 IF Kools_5 THEN Horse_4
 
 IF Horse_1 THEN Kools_2
-IF Horse_2 THEN [Kools_1 OR Kools_3]
-IF Horse_3 THEN [Kools_2 OR Kools_4]
-IF Horse_4 THEN [Kools_3 OR Kools_5]
+IF Horse_2 THEN Kools_1 OR Kools_3
+IF Horse_3 THEN Kools_2 OR Kools_4
+IF Horse_4 THEN Kools_3 OR Kools_5
 IF Horse_5 THEN Kools_4
 =====================================================================================
 
-= The Lucky Strike smoker drinks orange juice.
+= 13. The Lucky Strike smoker drinks orange juice.
 =====================================================================================
 IF LuckyStrike_1 THEN OrangeJuice_1
 IF OrangeJuice_1 THEN LuckyStrike_1
@@ -179,7 +179,7 @@ IF LuckyStrike_5 THEN OrangeJuice_5
 IF OrangeJuice_5 THEN LuckyStrike_5
 =====================================================================================
 
-= The Japanese smokes Parliaments.
+= 14. The Japanese smokes Parliaments.
 =====================================================================================
 IF Japanese_1 THEN Parliaments_1
 IF Parliaments_1 THEN Japanese_1
@@ -197,17 +197,17 @@ IF Japanese_5 THEN Parliaments_5
 IF Parliaments_5 THEN Japanese_5
 =====================================================================================
 
-= The Norwegian lives next to the blue house.
+= 15. The Norwegian lives next to the blue house.
 =====================================================================================
 IF Norwegian_1 THEN Blue_2
-IF Norwegian_2 THEN [Blue_1 OR Blue_3]
-IF Norwegian_3 THEN [Blue_2 OR Blue_4]
-IF Norwegian_4 THEN [Blue_3 OR Blue_5]
+IF Norwegian_2 THEN Blue_1 OR Blue_3
+IF Norwegian_3 THEN Blue_2 OR Blue_4
+IF Norwegian_4 THEN Blue_3 OR Blue_5
 IF Norwegian_5 THEN Blue_4
 
 IF Blue_1 THEN Norwegian_2
-IF Blue_2 THEN [Norwegian_1 OR Norwegian_3]
-IF Blue_3 THEN [Norwegian_2 OR Norwegian_4]
-IF Blue_4 THEN [Norwegian_3 OR Norwegian_5]
+IF Blue_2 THEN Norwegian_1 OR Norwegian_3
+IF Blue_3 THEN Norwegian_2 OR Norwegian_4
+IF Blue_4 THEN Norwegian_3 OR Norwegian_5
 IF Blue_5 THEN Norwegian_4
 =====================================================================================
