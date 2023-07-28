@@ -6,15 +6,6 @@ import pandas
 # MIT NULLEN: https://msoos.github.io/cryptominisat_web/
 # https://waitbutwhy.com/table/zebra-puzzle
 
-# SOLUTION:
-# 1) The Norwegian drinks water
-# 2) The Japanese guy has a pet zebra
-
-# GENERATE SYNTAX
-
-# The puzzle consists of five different-colored houses in a row, each lived in by a resident of a different nationality. Each resident owns a different pet, prefers a different drink, and smokes a different brand of cigarettes than the others.
-# 1. There are five houses.
-
 houses = ["1", "2", "3", "4", "5"]
 colors = ["Red", "Green", "Ivory", "Yellow", "Blue"]
 nationalities = ["Englishman", "Spaniard", "Ukrainian", "Norwegian", "Japanese"]
@@ -24,7 +15,7 @@ cigarettes = ["OldGold", "Kools", "Chesterfields", "LuckyStrike", "Parliaments"]
 
 syntactical_constraints = []
 
-# Jedes Haus hat genau eine Farbe.
+# Each house has one color.
 for house in houses:
 
   has_at_least_one_color = " OR ".join([f"{color}_{house}" for color in colors])
@@ -74,7 +65,7 @@ for house in houses:
 
 syntactical_constraints.append("")
 
-# Jede Farbe kommt bei genau einem Haus vor.
+# Each color has one house.
 for color in colors:
   has_at_least_one_house = " OR ".join([f"{color}_{house}" for house in houses])
   syntactical_constraints.append(has_at_least_one_house)
@@ -125,8 +116,6 @@ for cigarette in cigarettes:
       syntactical_constraints.append(has_at_most_one_house)
   syntactical_constraints.append("")
 syntactical_constraints = syntactical_constraints[:-1]
-
-# CONVERT NAMES TO NUMBERS
 
 # Milestone 0: Loaded empirical constraints
 with open("empirical_constraints.satcode") as cons_file:
