@@ -83,6 +83,9 @@ IF Green_4 THEN Ivory_3
 
 IF Ivory_4 THEN Green_5
 IF Green_5 THEN Ivory_4
+
+NOT Ivory_5
+NOT Green_1
 =====================================================================================
 
 = 7. The Old Gold smoker owns snails.
